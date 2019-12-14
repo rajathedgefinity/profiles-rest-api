@@ -4,7 +4,7 @@ from django.contrib.auth.models import BaseUserManager
 
 # Create your models here.
 
-class UserProfileManager(BaseUserManager):
+class UserProfilesManager(BaseUserManager):
     """Manager for user profiles"""
 
     def create_user(self, email, name, password=None):
@@ -30,15 +30,14 @@ class UserProfileManager(BaseUserManager):
 
         return user
 
-
-class UserProfile(AbstractUser, PermissionsMixin):
+class UserProfiles(AbstractUser):
     """Database models for users in the system"""
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = UserProfileManager()
+    objects = UserProfilesManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
